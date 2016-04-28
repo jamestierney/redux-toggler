@@ -1,0 +1,24 @@
+{
+  "name": "redux-toggler",
+  "version": "0.1.4",
+  "description": "A Redux implementation for simple React and React native toggle animations",
+  "main": "index.js",
+  "directories": {
+    "example": "example"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "React",
+    "Native",
+    "Redux",
+    "animation",
+    "toggle",
+    "show",
+    "hide"
+  ],
+  "readme": "readme.md",
+  "author": "James Tierney <james@fifteendigital.co.uk>",
+  "license": "ISC"
+}
