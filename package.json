@@ -1,7 +1,11 @@
 {
   "name": "redux-toggler",
-  "version": "0.1.4",
-  "description": "A Redux implementation for simple React and React native toggle animations",
+  "version": "0.1.7",
+  "description": "A Redux implementation for simple React and React Native toggle animations",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jamestierney/redux-toggler"
+  },
   "main": "index.js",
   "directories": {
     "example": "example"
@@ -18,7 +22,10 @@
     "show",
     "hide"
   ],
-  "readme": "readme.md",
-  "author": "James Tierney <james@fifteendigital.co.uk>",
+  "author": {
+    "name": "James Tierney",
+    "email": "james@fifteendigital.co.uk",
+    "url": "http://www.fifteendevelopers.co.uk/"
+  },
   "license": "ISC"
 }

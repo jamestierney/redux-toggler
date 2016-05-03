@@ -5,6 +5,14 @@ const init = (key, config) => {
   return { type: types.TOGGLER_INIT, key, config }
 }
 
+const toggleInit = (key, config) => {
+  return (dispatch, getState) => {
+    const toggler = getState().toggler
+    if (toggler[key]) return
+    return dispatch(init(key, config))
+  }
+}
+
 const setState = (key, value) => {
   return { type: types.TOGGLER_SET_STATE, key, value }
 }
@@ -39,24 +47,39 @@ const tick = (key) => {
   }
 }
 
+const toggleOpen = (key) => {
+  return (dispatch, getState) => {
+    dispatch(setState(key, states.OPENING))
+    dispatch(tick(key))
+  }
+}
+
+const toggleClose = (key) => {
+  return (dispatch, getState) => {
+    dispatch(setState(key, states.CLOSING))
+    dispatch(tick(key))
+  }
+}
+
 const toggle = (key) => {
   return (dispatch, getState) => {
     const { toggleState } = getState().toggler[key]
     switch (toggleState) {
       case states.OPEN:
       case states.OPENING:
-        dispatch(setState(key, states.CLOSING))
+        dispatch(toggleClose(key))
         break
       case states.CLOSED:
       case states.CLOSING:
-        dispatch(setState(key, states.OPENING))
+        dispatch(toggleOpen(key))
         break
     }
-    dispatch(tick(key))
   }
 }
 
 export {
-  init,
+  toggleInit,
   toggle,
+  toggleOpen,
+  toggleClose,
 }

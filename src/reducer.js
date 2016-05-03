@@ -37,12 +37,7 @@ export default (state = initialState, action = {}) => {
       var newState = Object.assign({}, state)
       newState[key] = item
       return newState
-
-      // return {
-      //   ...state,
-      //   percent,
-      // }
-
+      
     default:
       return state
   }

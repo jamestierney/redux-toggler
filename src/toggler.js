@@ -1,3 +1,4 @@
+import React, { Component } from 'react-native'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
@@ -10,15 +11,32 @@ const defaultState = {
 }
 
 export default toggler = (key, config) => {
-  const toggle = toggleActions.toggle.bind(null, key)
-  const actions = { toggle }
-  return connect(
-    ({toggler}) => {
-      return { toggler: toggler[key] ? toggler[key] : defaultState }
-    },
-    (dispatch) => {
-      dispatch(toggleActions.init(key, config))
-      return (bindActionCreators(actions, dispatch))
+
+  const actions = {
+    toggleInit: toggleActions.toggleInit.bind(null, key),
+    toggle: toggleActions.toggle.bind(null, key),
+    toggleOpen: toggleActions.toggleOpen.bind(null, key),
+    toggleClose: toggleActions.toggleClose.bind(null, key),
+  }
+
+  return (WrappedComponent) => {
+    class Wrapper extends Component {
+        componentWillMount() {
+          this.props.toggleInit(key, config)
+        }
+        render() {
+          return (
+            <WrappedComponent
+            {...this.props}
+            />
+          )
+        }
+      }
+      return connect(({toggler}) => {
+          return { toggler: toggler[key] ? toggler[key] : defaultState }
+        },
+        (dispatch) => {
+          return (bindActionCreators(actions, dispatch))
+        })(Wrapper)
     }
-  )
 }

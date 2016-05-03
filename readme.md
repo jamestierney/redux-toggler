@@ -1,5 +1,5 @@
 # Redux toggler
-A Redux implementation for simple React and React native toggle animations.
+A Redux implementation for simple React and React Native toggle animations.
 
 ## Installation
 ```npm install --save redux-toggler```
@@ -10,7 +10,6 @@ Add the redux-toggler reducer to your reducers. You will only have to do this on
 
 ```
 import { combineReducers } from 'redux'
-import { reducer as form } from 'redux-form'
 import { togglerReducer as toggler } from 'redux-toggler'
 
 export default combineReducers({
