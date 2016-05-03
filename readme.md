@@ -46,11 +46,16 @@ You can share the information with other components by using the same key.
 
 ## Props available
 * toggle() - action to start a toggle animation process. If a toggle action is in progress, it will reverse the direction.
+* toggleOpen() - action to open the toggler
+* toggleClose() - action to close the toggler
 * toggler  - object containing:
     * toggleState - ['OPEN', 'CLOSED', 'OPENING', 'CLOSING']
     * percent - number between 0 and 100 which you can use to create your animations
 
 ## Example
+
+![launch](example.gif)
+
 ```
 import React, { Component, TouchableWithoutFeedback, Image, View, Text, StyleSheet } from 'react-native'
 import { toggler } from 'redux-toggler'
