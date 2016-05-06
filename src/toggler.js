@@ -17,6 +17,8 @@ export default toggler = (key, config) => {
     toggle: toggleActions.toggle.bind(null, key),
     toggleOpen: toggleActions.toggleOpen.bind(null, key),
     toggleClose: toggleActions.toggleClose.bind(null, key),
+    toggleSetOpen: toggleActions.toggleSetOpen.bind(null, key),
+    toggleSetClosed: toggleActions.toggleSetClosed.bind(null, key),
   }
 
   return (WrappedComponent) => {

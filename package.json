@@ -1,6 +1,6 @@
 {
   "name": "redux-toggler",
-  "version": "0.1.7",
+  "version": "0.1.9",
   "description": "A Redux implementation for simple React and React Native toggle animations",
   "repository": {
     "type": "git",
