@@ -48,6 +48,8 @@ You can share the information with other components by using the same key.
 * toggle() - action to start a toggle animation process. If a toggle action is in progress, it will reverse the direction.
 * toggleOpen() - action to open the toggler
 * toggleClose() - action to close the toggler
+* toggleSetOpen() - open the toggler without animating
+* toggleSetClosed() - close the toggler without animating
 * toggler  - object containing:
     * toggleState - ['OPEN', 'CLOSED', 'OPENING', 'CLOSING']
     * percent - number between 0 and 100 which you can use to create your animations
@@ -180,4 +182,21 @@ const styles = StyleSheet.create({
   },
 
 })
+```
+
+## Triggering actions outside of a component
+You can trigger actions by importing the { togglerActions } object.
+As these are not automatically decorated using the toggler() function,
+you need to specify the key as the first argument to every action.
+
+This example triggers toggleClose() within a redux-thunk action:
+```
+import { togglerActions } from 'redux-toggler'
+
+export const refresh = () => {
+  return (dispatch, getState) => {
+    // do some other actions
+    dispatch(togglerActions.toggleClose('filters'))
+  }
+}
 ```

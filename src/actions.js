@@ -1,8 +1,25 @@
-import * as types from './constants/actionTypes'
-import * as states from './constants/toggleStates'
+import {
+  TOGGLER_INIT,
+  TOGGLER_SET_STATE,
+  TOGGLER_SET_PERCENT_OPEN,
+} from './constants/actionTypes'
+import {
+  OPEN,
+  CLOSED,
+  OPENING,
+  CLOSING,
+} from './constants/toggleStates'
 
 const init = (key, config) => {
-  return { type: types.TOGGLER_INIT, key, config }
+  return { type: TOGGLER_INIT, key, config }
+}
+
+const setState = (key, value) => {
+  return { type: TOGGLER_SET_STATE, key, value }
+}
+
+const setPercentOpen = (key, value) => {
+  return { type: TOGGLER_SET_PERCENT_OPEN, key, value }
 }
 
 const toggleInit = (key, config) => {
@@ -13,34 +30,27 @@ const toggleInit = (key, config) => {
   }
 }
 
-const setState = (key, value) => {
-  return { type: types.TOGGLER_SET_STATE, key, value }
-}
-
-const setPercentOpen = (key, value) => {
-  return { type: types.TOGGLER_SET_PERCENT_OPEN, key, value }
-}
-
+// TODO: handle custom duration and complex animation types
 const tick = (key) => {
   return (dispatch, getState) => {
     const { toggleState, percent } = getState().toggler[key]
     switch (toggleState) {
-      case states.OPENING:
+      case OPENING:
         if (percent < 100) {
           dispatch(setPercentOpen(key, percent + 10))
           setTimeout(() => dispatch(tick(key)), 5)
         } else {
           dispatch(setPercentOpen(key, 100))
-          dispatch(setState(key, states.OPEN))
+          dispatch(setState(key, OPEN))
         }
         break
-      case states.CLOSING:
+      case CLOSING:
         if (percent > 0) {
           dispatch(setPercentOpen(key, percent - 10))
           setTimeout(() => dispatch(tick(key)), 5)
         } else {
           dispatch(setPercentOpen(key, 0))
-          dispatch(setState(key, states.CLOSED))
+          dispatch(setState(key, CLOSED))
         }
         break
     }
@@ -49,15 +59,29 @@ const tick = (key) => {
 
 const toggleOpen = (key) => {
   return (dispatch, getState) => {
-    dispatch(setState(key, states.OPENING))
+    dispatch(setState(key, OPENING))
     dispatch(tick(key))
   }
 }
 
 const toggleClose = (key) => {
   return (dispatch, getState) => {
-    dispatch(setState(key, states.CLOSING))
+    dispatch(setState(key, CLOSING))
     dispatch(tick(key))
+  }
+}
+
+const toggleSetOpen = (key) => {
+  return (dispatch, getState) => {
+    dispatch(setState(key, OPEN))
+    dispatch(setPercentOpen(key, 100))
+  }
+}
+
+const toggleSetClosed = (key) => {
+  return (dispatch, getState) => {
+    dispatch(setState(key, CLOSED))
+    dispatch(setPercentOpen(key, 0))
   }
 }
 
@@ -65,12 +89,12 @@ const toggle = (key) => {
   return (dispatch, getState) => {
     const { toggleState } = getState().toggler[key]
     switch (toggleState) {
-      case states.OPEN:
-      case states.OPENING:
+      case OPEN:
+      case OPENING:
         dispatch(toggleClose(key))
         break
-      case states.CLOSED:
-      case states.CLOSING:
+      case CLOSED:
+      case CLOSING:
         dispatch(toggleOpen(key))
         break
     }
@@ -82,4 +106,6 @@ export {
   toggle,
   toggleOpen,
   toggleClose,
+  toggleSetOpen,
+  toggleSetClosed,
 }
